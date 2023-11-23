@@ -1,0 +1,127 @@
+import React, { Component } from 'react';
+
+class Calculator extends Component {
+  constructor() {
+    super();
+    this.state = {
+      displayValue: '0',
+      operator: null,
+      waitingForOperand: false,
+      clearOnNextInput: false,
+    };
+  }
+
+  inputDigit(digit) {
+    const { displayValue, waitingForOperand, clearOnNextInput } = this.state;
+
+    if (clearOnNextInput) {
+      this.setState({
+        displayValue: String(digit),
+        clearOnNextInput: false,
+      });
+    } else {
+      this.setState({
+        displayValue: waitingForOperand ? String(digit) : displayValue === '0' ? String(digit) : displayValue + digit,
+        waitingForOperand: false,
+      });
+    }
+  }
+
+  inputDecimal() {
+    const { displayValue, waitingForOperand } = this.state;
+
+    if (waitingForOperand) {
+      this.setState({
+        displayValue: '.',
+        waitingForOperand: false,
+      });
+    } else if (displayValue.indexOf('.') === -1) {
+      this.setState({
+        displayValue: displayValue + '.',
+        waitingForOperand: false,
+      });
+    }
+  }
+
+  performOperation(nextOperator) {
+    const { displayValue, operator } = this.state;
+    const inputValue = parseFloat(displayValue);
+
+    if (operator && this.state.waitingForOperand) {
+      this.setState({
+        operator: nextOperator,
+      });
+      return;
+    }
+
+    if (operator != null) {
+      const currentValue = this.state.value;
+
+      const newValue =
+        operator === '+'
+          ? currentValue + inputValue
+          : operator === '-'
+          ? currentValue - inputValue
+          : operator === 'x'
+          ? currentValue * inputValue
+          : operator === '/'
+          ? currentValue / inputValue
+          : inputValue;
+
+      this.setState({
+        value: newValue,
+        displayValue: String(newValue),
+      });
+    } else {
+      this.setState({
+        value: inputValue,
+      });
+    }
+
+    this.setState({
+      waitingForOperand: true,
+      operator: nextOperator,
+      clearOnNextInput: true,
+    });
+  }
+
+  clearAll() {
+    this.setState({
+      displayValue: '0',
+      operator: null,
+      waitingForOperand: false,
+      clearOnNextInput: false,
+    });
+  }
+
+  render() {
+    const { displayValue } = this.state;
+
+    return (
+      <div className="calculator">
+        <input type="text" className="display" value={displayValue} readOnly />
+        <div className="buttons">
+          <button onClick={() => this.clearAll()}>C</button>
+          <button onClick={() => this.inputDigit(7)}>7</button>
+          <button onClick={() => this.inputDigit(8)}>8</button>
+          <button onClick={() => this.inputDigit(9)}>9</button>
+          <button onClick={() => this.performOperation('/')}>/</button>
+          <button onClick={() => this.inputDigit(4)}>4</button>
+          <button onClick={() => this.inputDigit(5)}>5</button>
+          <button onClick={() => this.inputDigit(6)}>6</button>
+          <button onClick={() => this.performOperation('x')}>x</button>
+          <button onClick={() => this.inputDigit(1)}>1</button>
+          <button onClick={() => this.inputDigit(2)}>2</button>
+          <button onClick={() => this.inputDigit(3)}>3</button>
+          <button onClick={() => this.performOperation('-')}>-</button>
+          <button onClick={() => this.inputDecimal()}>.</button>
+          <button onClick={() => this.inputDigit(0)}>0</button>
+          <button onClick={() => this.performOperation('=')}>=</button>
+          <button onClick={() => this.performOperation('+')}>+</button>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default Calculator;
