@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SkyPlanner</title>
+    <style>
+        body {
+            background-image: url('https://wallpaperaccess.com/full/3482597.jpg'); /* Set your background image */
+            background-size: cover;
+            background-repeat: no-repeat;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .container {
+            width: 80%; /* Increased width */
+            max-width: 500px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            text-align: center; /* Center-align the form */
+            margin: 0 auto; /* Center the form horizontally */
+        }
+        h1 {
+            text-align: center;
+            color: #0073e6;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .input-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .input-container label {
+            flex: 1;
+            text-align: left;
+        }
+        .input-container input {
+            flex: 3;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            background-color: #0073e6;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto; /* Center the submit button horizontally */
+        }
+        input[type="submit"]:hover {
+            background-color: #005bbf;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #333;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SkyPlanner</h1>
+        <form action="process.php" method="post" onsubmit="return validateForm()">
+            <div class="input-container">
+                <label for="passenger_name">Passenger Name:</label>
+                <input type="text" id="passenger_name" name="passenger_name" required>
+            </div>
+
+            <div class="input-container">
+                <label for="from">From:</label>
+                <input type="text" id="from" name="from" required>
+            </div>
+
+            <div class="input-container">
+                <label for="to">To:</label>
+                <input type="text" id="to" name="to" required>
+            </div>
+
+            <div class="input-container">
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date" required>
+            </div>
+
+            <div class="input-container">
+                <label for="departure_date">Departure Date:</label>
+                <input type="date" id="departure_date" name="departure_date" required>
+            </div>
+
+            <div class="input-container">
+                <label for="arrival_date">Arrival Date:</label>
+                <input type="date" id="arrival_date" name="arrival_date" required>
+            </div>
+
+            <div class="input-container">
+                <label for="phone_number">Phone Number:</label>
+                <input type="tel" id="phone_number" name="phone_number" required>
+            </div>
+
+            <div class="input-container">
+                <label for="email">Email ID:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <input type="submit" value="Insert Booking">
+        </form>
+
+        <!-- Table to display flight booking details will be added here -->
+
+    </div>
+</body>
+</html>
